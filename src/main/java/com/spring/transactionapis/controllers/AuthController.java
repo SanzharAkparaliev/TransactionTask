@@ -5,7 +5,7 @@ import com.spring.transactionapis.payloads.JwtAuthRequest;
 import com.spring.transactionapis.payloads.JwtAuthResponse;
 import com.spring.transactionapis.payloads.UserDto;
 import com.spring.transactionapis.security.JwtTokenHelper;
-import com.spring.transactionapis.services.UserService;
+import com.spring.transactionapis.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.spring.transactionapis.impl;
+package com.spring.transactionapis.service;
 
 import com.spring.transactionapis.config.AppConstants;
 import com.spring.transactionapis.entities.PersonalAccount;
@@ -8,14 +8,16 @@ import com.spring.transactionapis.payloads.UserDto;
 import com.spring.transactionapis.repositories.PersonalAcountRepository;
 import com.spring.transactionapis.repositories.RoleRepository;
 import com.spring.transactionapis.repositories.UserRepository;
-import com.spring.transactionapis.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 @Service
-public class UserServiceImpl implements UserService {
+public class UserService  {
     @Autowired
     private UserRepository userRepository;
 
@@ -31,7 +33,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Override
     public UserDto registerNewUser(UserDto userDto) {
         User user = modelMapper.map(userDto,User.class);
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
@@ -45,6 +46,18 @@ public class UserServiceImpl implements UserService {
         personalAcountRepository.save(account);
 
         return modelMapper.map(newUser,UserDto.class);
+    }
+
+    public String withdrawBalance(User user){
+        BigDecimal wBalance = new BigDecimal("1.1");
+        PersonalAccount account = personalAcountRepository.findByUser(user).get();
+        account.setBalance(account.getBalance().subtract(wBalance));
+        personalAcountRepository.save(account);
+        return "Succesfully";
+    }
+
+    public Optional<User> findByUserName(String username){
+        return  userRepository.findByEmail(username);
     }
 
 
