@@ -16,4 +16,4 @@ POST http://localhost:8080/api/v1/auth/login
 
 3) withdraw-balance
 Authorization Bearer (token)
-GET http://localhost:8080/withdraw-balance
+http://localhost:8080/withdraw-balance?personalAccountId={personalAccountId}

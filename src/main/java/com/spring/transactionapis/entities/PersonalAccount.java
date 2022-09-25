@@ -1,6 +1,7 @@
 package com.spring.transactionapis.entities;
 
 
+import com.spring.transactionapis.model.PersonalAccountModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,12 @@ public class PersonalAccount {
     private User user;
 
     private BigDecimal balance;
+
+    public PersonalAccountModel toModel() {
+        return PersonalAccountModel.builder()
+                .id(id)
+                .user(user)
+                .balance(balance)
+                .build();
+    }
 }

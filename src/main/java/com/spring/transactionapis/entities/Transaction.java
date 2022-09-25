@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,9 +19,9 @@ public class Transaction {
     private Long id;
 
     private String status;
-    private Date createdDate;
-    private Date finishDate;
+    private LocalDateTime createdDate;
 
+    private BigDecimal operationSum;
     @ManyToOne
     @JoinColumn(name = "account_id")
     private PersonalAccount personalAccount;

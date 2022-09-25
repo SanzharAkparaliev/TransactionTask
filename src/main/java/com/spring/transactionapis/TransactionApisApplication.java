@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 @SpringBootApplication
-public class TransactionApisApplication implements CommandLineRunner {
+public class TransactionApisApplication implements CommandLineRunner{
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -26,7 +26,6 @@ public class TransactionApisApplication implements CommandLineRunner {
 		return  new ModelMapper();
 	}
 
-
 	@Override
 	public void run(String... args) throws Exception {
 		Optional<Role> role = roleRepository.findByName("NORMAL_USER");
@@ -38,4 +37,5 @@ public class TransactionApisApplication implements CommandLineRunner {
 			roleRepository.save(newRole);
 		}
 	}
+
 }

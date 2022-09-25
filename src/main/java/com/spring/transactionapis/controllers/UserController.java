@@ -1,21 +1,19 @@
 package com.spring.transactionapis.controllers;
 
-import com.spring.transactionapis.entities.User;
-import com.spring.transactionapis.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
+import com.spring.transactionapis.model.PersonalAccountModel;
+import com.spring.transactionapis.service.TransactionService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final TransactionService transactionService;
     @GetMapping("/withdraw-balance")
-    public String withdraw(Principal principal) {
-        User user = userService.findByUserName(principal.getName()).get();
-        String result = userService.withdrawBalance(user);
-        return  result;
+    public PersonalAccountModel withdraw(@RequestParam Long personalAccountId) {
+        return transactionService.makePayment(personalAccountId);
     }
 }
