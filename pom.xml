@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring</groupId>
-	<artifactId>blog-app-apis</artifactId>
+	<artifactId>transaction-app-apis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>blog-app-apis</name>
-	<description>blog-app-apis</description>
+	<name>transaction-app-apis</name>
+	<description>transaction-app-apis</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

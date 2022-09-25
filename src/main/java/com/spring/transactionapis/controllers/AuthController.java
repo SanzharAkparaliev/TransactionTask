@@ -1,5 +1,6 @@
 package com.spring.transactionapis.controllers;
 
+import com.spring.transactionapis.entities.User;
 import com.spring.transactionapis.exceptions.ApiException;
 import com.spring.transactionapis.payloads.JwtAuthRequest;
 import com.spring.transactionapis.payloads.JwtAuthResponse;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.NoSuchElementException;
 
 @Slf4j
 @RestController
@@ -61,5 +64,14 @@ public class AuthController {
     public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto){
         UserDto registeredUser = this.userService.registerNewUser(userDto);
         return new ResponseEntity<>(registeredUser,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/logout")
+    public String logout(String token, String email) {
+        User user = userService.findByUserName(email).orElseThrow(()-> new NoSuchElementException("user by email: " + email + " was not found"));
+        if (!jwtTokenHelper.validateToken(token, user).equals(Boolean.TRUE))
+            return "your session has expired or try to login later";
+        jwtTokenHelper.getInvalidTokens().add(token);
+        return "You have logged out";
     }
 }
